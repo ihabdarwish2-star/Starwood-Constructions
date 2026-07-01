@@ -238,10 +238,10 @@ export default function ImageGallery() {
 
 
           <img
-            src={`/images/${filteredImages[selected].file}`}
-            alt={filteredImages[selected].title}
-            className="max-h-[85vh] max-w-[90vw] rounded-xl shadow-2xl border border-yellow-500/30"
-          />
+  src={`/images/${images[selected].file}`}
+  alt={images[selected].title}
+  className="max-h-[85vh] max-w-[90vw] rounded-xl shadow-2xl border border-yellow-500/30 animate-[zoom_0.25s_ease]"
+/>
 
 
 
