@@ -1,65 +1,548 @@
 import Image from "next/image";
-
+import MobileMenu from "@/components/MobileMenu";
+import ImageGallery from "@/components/ImageGallery";
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <main className="bg-black text-white min-h-screen">
+
+      {/* Navigation */}
+    <nav className="sticky top-0 z-50 h-30 flex justify-between items-center px-8 bg-black/90 backdrop-blur border-b border-yellow-500/20">
+
+
+  <div className="flex items-center h-full">
+
+  <Image
+  src="/images/starwood-logo.png"
+  alt="Starwood Constructions Logo"
+  width={300}
+  height={300}
+ className="object-contain w-35 h-35 md:w-52 md:h-52 -translate-y-2 md:translate-y-3"
+/>
+
+  </div>
+
+
+
+  <div className="hidden md:flex gap-10 text-gray-300 font-medium">
+
+    <a href="#home" className="hover:text-yellow-500 transition">
+      Home
+    </a>
+
+    <a href="#services" className="hover:text-yellow-500 transition">
+      Services
+    </a>
+
+    <a href="#projects" className="hover:text-yellow-500 transition">
+      Projects
+    </a>
+
+    <a href="#contact" className="hover:text-yellow-500 transition">
+      Contact
+    </a>
+
+  </div>
+
+
+
+  <MobileMenu />
+
+
+</nav>
+      {/* Hero */}
+
+<section
+  id="home"
+  className="relative min-h-[90vh] flex items-center justify-center px-6 bg-cover bg-center overflow-hidden fade-up"
+  style={{
+    backgroundImage: "url('/images/homebush-slab.jpg')",
+  }}
+>
+
+
+  {/* Dark Overlay */}
+
+  <div className="absolute inset-0 bg-black/70"></div>
+
+
+
+  <div className="relative text-center max-w-5xl">
+
+
+    <div className="inline-block border border-yellow-500/40 rounded-full px-6 py-2 mb-8">
+
+      <p className="text-yellow-500 text-sm tracking-[0.3em] uppercase">
+        Sydney Construction Specialists
+      </p>
+
     </div>
+
+
+
+    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+
+      Precision in Formwork.
+
+      <br />
+
+      <span className="text-yellow-500">
+        Strength in Structure.
+      </span>
+
+      <br />
+
+      Excellence in Every Pour.
+
+    </h1>
+
+
+
+    <p className="mt-8 text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed">
+
+      Starwood Constructions delivers premium formwork,
+      steel fixing and concrete solutions for residential
+      and commercial projects across Sydney.
+
+    </p>
+
+
+
+    <div className="mt-10 flex flex-col sm:flex-row justify-center gap-5">
+
+
+      <a
+        href="#contact"
+        className="bg-yellow-500 text-black px-10 py-4 rounded-lg font-bold hover:bg-yellow-600 transition"
+      >
+        Request a Quote
+      </a>
+
+
+
+      <a
+        href="#projects"
+        className="border border-yellow-500 text-yellow-500 px-10 py-4 rounded-lg hover:bg-yellow-500/10 transition"
+      >
+        View Our Work
+      </a>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+     {/* Services */}
+
+<section id="services" className="py-24 px-8 bg-zinc-950 fade-up">
+
+
+  <div className="text-center max-w-4xl mx-auto mb-16">
+
+    <h2 className="text-5xl font-bold text-yellow-500 mb-6">
+      Our Services
+    </h2>
+
+
+    <p className="text-gray-300 text-lg">
+      Professional construction solutions delivered with precision,
+      quality and reliability.
+    </p>
+
+  </div>
+
+
+
+
+  <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+
+
+    <div className="group border border-yellow-500/30 rounded-xl p-10 bg-black hover:-translate-y-2 transition duration-300">
+
+      <h3 className="text-2xl font-bold text-yellow-500 mb-4">
+        Formwork
+      </h3>
+
+      <p className="text-gray-300 leading-relaxed">
+        Precision-built formwork systems for slabs,
+        walls, columns and structural concrete projects.
+      </p>
+
+    </div>
+
+
+
+
+    <div className="group border border-yellow-500/30 rounded-xl p-10 bg-black hover:-translate-y-2 transition duration-300">
+
+      <h3 className="text-2xl font-bold text-yellow-500 mb-4">
+        Steel Fixing
+      </h3>
+
+      <p className="text-gray-300 leading-relaxed">
+        Accurate reinforcement installation ensuring
+        strength, safety and structural performance.
+      </p>
+
+    </div>
+
+
+
+
+    <div className="group border border-yellow-500/30 rounded-xl p-10 bg-black hover:-translate-y-2 transition duration-300">
+
+      <h3 className="text-2xl font-bold text-yellow-500 mb-4">
+        Concrete
+      </h3>
+
+      <p className="text-gray-300 leading-relaxed">
+        Quality concrete placement for residential
+        and commercial construction projects.
+      </p>
+
+    </div>
+
+
+
+  </div>
+
+
+</section>
+      {/* About */}
+
+<section id="about" className="py-24 px-8 bg-black fade-up">
+
+
+  <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+
+
+    <div>
+
+
+      <h2 className="text-5xl font-bold text-yellow-500 mb-6">
+        About Starwood Constructions
+      </h2>
+
+
+
+      <p className="text-gray-300 text-lg leading-relaxed">
+
+        Starwood Constructions specialises in premium
+        formwork, steel fixing and concrete solutions
+        across Sydney.
+
+        <br /><br />
+
+        We focus on precision workmanship, reliable
+        project delivery and high-quality structural
+        outcomes for residential and commercial projects.
+
+      </p>
+
+
+    </div>
+
+
+
+
+
+    <div className="border border-yellow-500/30 rounded-xl p-10 bg-zinc-950">
+
+
+      <h3 className="text-3xl font-bold text-yellow-500 mb-8">
+        Why Choose Us
+      </h3>
+
+
+
+      <ul className="space-y-5 text-gray-300 text-lg">
+
+
+        <li>
+          ✓ Professional Formwork Solutions
+        </li>
+
+
+        <li>
+          ✓ Experienced Steel Fixing Team
+        </li>
+
+
+        <li>
+          ✓ Quality Concrete Construction
+        </li>
+
+
+        <li>
+          ✓ Residential & Commercial Projects
+        </li>
+
+
+        <li>
+          ✓ Safety, Precision & Reliability
+        </li>
+
+
+      </ul>
+
+
+    </div>
+
+
+  </div>
+
+
+</section>
+{/* Projects */}
+<section
+  id="projects"
+  className="py-20 px-8 bg-zinc-950 fade-up"
+>
+
+  <div className="text-center max-w-4xl mx-auto mb-16">
+
+    <h2 className="text-5xl font-bold text-yellow-500 mb-6">
+      Our Work
+    </h2>
+
+    <p className="text-gray-300 text-lg">
+      A selection of Starwood Constructions projects showcasing
+      precision formwork, reinforcement, concrete structures and
+      quality finishes across Sydney.
+    </p>
+
+  </div>
+
+
+  <ImageGallery />
+
+
+</section>
+
+        
+
+     {/* Contact */}
+<section id="contact" className="py-24 px-8 bg-zinc-950 fade-up">
+
+  <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+
+
+    {/* Contact Information */}
+
+    <div>
+
+      <h2 className="text-5xl font-bold text-yellow-500 mb-6">
+        Request a Quote
+      </h2>
+
+
+      <p className="text-gray-300 text-lg leading-relaxed mb-8">
+        Tell us about your next construction project.
+        Starwood Constructions provides professional formwork,
+        steel fixing and concrete solutions across Sydney.
+      </p>
+
+
+      <div className="space-y-4 text-gray-300">
+
+        <p>
+          📍 Sydney, NSW
+        </p>
+
+        <p>
+          📞 0450 890 096
+        </p>
+
+        <p>
+          ✉ info@starwoodconstructions.com.au
+        </p>
+
+      </div>
+
+
+    </div>
+
+
+
+    {/* Quote Form */}
+
+    <form className="grid gap-6 bg-black p-8 rounded-xl border border-yellow-500/30">
+
+
+      <input
+        type="text"
+        placeholder="Your Name"
+        className="bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white"
+      />
+
+
+      <input
+        type="tel"
+        placeholder="Phone Number"
+        className="bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white"
+      />
+
+
+      <input
+        type="email"
+        placeholder="Email Address"
+        className="bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white"
+      />
+
+
+      <select
+        className="bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg text-gray-300"
+      >
+
+        <option>
+          Select Service
+        </option>
+
+        <option>
+          Formwork
+        </option>
+
+        <option>
+          Steel Fixing
+        </option>
+
+        <option>
+          Concrete
+        </option>
+
+        <option>
+          Retaining Walls
+        </option>
+
+      </select>
+
+
+
+      <textarea
+        placeholder="Project Details"
+        rows={5}
+        className="bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white resize-none"
+      />
+
+
+      <button
+        type="submit"
+        className="bg-yellow-500 text-black py-4 rounded-lg font-bold hover:bg-yellow-600 transition"
+      >
+        Send Request
+      </button>
+
+
+    </form>
+
+
+  </div>
+
+</section>
+      {/* Footer */}
+
+<footer className="border-t border-yellow-500/20 py-12 px-8 bg-zinc-950">
+
+
+  <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+
+
+
+    <div>
+
+      <h2 className="text-3xl font-bold text-yellow-500">
+        STARWOOD
+      </h2>
+
+
+      <p className="text-gray-400 mt-4">
+        Premium Formwork • Steel Fixing • Concrete
+      </p>
+
+
+      <p className="text-gray-500 mt-4 text-sm">
+        Building strong structures across Sydney.
+      </p>
+
+    </div>
+
+
+
+
+
+    <div>
+
+      <h3 className="text-yellow-500 font-bold mb-5">
+        Contact
+      </h3>
+
+
+      <p className="text-gray-300">
+        Sydney, NSW
+      </p>
+
+
+      <p className="text-gray-300 mt-2">
+        Phone: 0450 890 096
+      </p>
+
+
+      <p className="text-gray-300 mt-2">
+        Email: info@starwoodconstructions.com.au
+      </p>
+
+
+    </div>
+
+
+
+
+
+    <div>
+
+      <h3 className="text-yellow-500 font-bold mb-5">
+        Services
+      </h3>
+
+
+      <p className="text-gray-300">
+        Formwork
+      </p>
+
+
+      <p className="text-gray-300 mt-2">
+        Steel Fixing
+      </p>
+
+
+      <p className="text-gray-300 mt-2">
+        Concrete
+      </p>
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+  <div className="text-center text-gray-500 text-sm mt-12 border-t border-yellow-500/10 pt-6">
+
+    © 2026 Starwood Constructions. All Rights Reserved.
+
+  </div>
+
+
+
+</footer>
+    </main>
   );
 }
