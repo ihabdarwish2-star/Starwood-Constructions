@@ -216,7 +216,9 @@ export default function ImageGallery() {
 
       {selected !== null && (
 
-        <div className="fixed inset-0 bg-black/95 backdrop-blur-sm z-50 flex items-center justify-center px-5">
+        <div
+  className="fixed inset-0 bg-black/95 backdrop-blur-sm z-50 flex items-center justify-center px-5 overflow-hidden"
+>
 
 
           <button
