@@ -217,7 +217,7 @@ export default function ImageGallery() {
       {selected !== null && (
 
         <div
-  className="fixed inset-0 bg-black/95 backdrop-blur-sm z-50 flex items-center justify-center px-5 overflow-hidden"
+  className="fixed top-0 left-0 w-screen h-screen bg-black/95 backdrop-blur-sm z-[999] flex items-center justify-center px-4 overflow-hidden"
 >
 
 
@@ -242,7 +242,7 @@ export default function ImageGallery() {
           <img
   src={`/images/${images[selected].file}`}
   alt={images[selected].title}
-  className="max-h-[85vh] max-w-[90vw] rounded-xl shadow-2xl border border-yellow-500/30 animate-[zoom_0.25s_ease]"
+  className="w-auto h-auto max-h-[75vh] max-w-[95vw] object-contain rounded-xl shadow-2xl border border-yellow-500/30"
 />
 
 
