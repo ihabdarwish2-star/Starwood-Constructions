@@ -1,6 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import MobileMenu from "@/components/MobileMenu";
 import ImageGallery from "@/components/ImageGallery";
+
 export default function Home() {
   return (
     <main className="bg-black text-white min-h-screen">
@@ -134,83 +136,77 @@ export default function Home() {
 
 
 </section>
-     {/* Services */}
-
-<section id="services" className="py-24 px-8 bg-zinc-950 fade-up">
-
-
-  <div className="text-center max-w-4xl mx-auto mb-16">
-
-    <h2 className="text-5xl font-bold text-yellow-500 mb-6">
-      Our Services
-    </h2>
-
-
-    <p className="text-gray-300 text-lg">
-      Professional construction solutions delivered with precision,
-      quality and reliability.
-    </p>
-
-  </div>
-
-
-
+{/* Services */}
+<section id="services" className="py-20 px-8 bg-zinc-950">
+  <h2 className="text-4xl text-center font-bold text-yellow-500 mb-12">
+    Our Services
+  </h2>
 
   <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
 
-
-
-    <div className="group border border-yellow-500/30 rounded-xl p-10 bg-black hover:-translate-y-2 transition duration-300">
-
-      <h3 className="text-2xl font-bold text-yellow-500 mb-4">
+    {/* Formwork */}
+    <div className="border border-yellow-500/30 rounded-xl p-10 bg-black/40 hover:border-yellow-500 transition">
+      <h3 className="text-2xl font-bold text-yellow-500">
         Formwork
       </h3>
 
-      <p className="text-gray-300 leading-relaxed">
-        Precision-built formwork systems for slabs,
-        walls, columns and structural concrete projects.
+      <p className="mt-4 text-gray-300 leading-7">
+        Precision-built formwork systems for residential and commercial
+        construction including slabs, suspended slabs, walls, columns,
+        stairs, retaining walls and complex concrete structures.
       </p>
 
+      <Link
+        href="/services/formwork"
+        className="inline-block mt-6 text-yellow-500 font-bold hover:text-yellow-400 transition"
+      >
+        View Projects →
+      </Link>
     </div>
 
-
-
-
-    <div className="group border border-yellow-500/30 rounded-xl p-10 bg-black hover:-translate-y-2 transition duration-300">
-
-      <h3 className="text-2xl font-bold text-yellow-500 mb-4">
+    {/* Steel Fixing */}
+    <div className="border border-yellow-500/30 rounded-xl p-10 bg-black/40 hover:border-yellow-500 transition">
+      <h3 className="text-2xl font-bold text-yellow-500">
         Steel Fixing
       </h3>
 
-      <p className="text-gray-300 leading-relaxed">
-        Accurate reinforcement installation ensuring
-        strength, safety and structural performance.
+      <p className="mt-4 text-gray-300 leading-7">
+        Professional reinforcement installation completed accurately to
+        engineering specifications, ensuring structural integrity,
+        strength and long-term durability.
       </p>
 
+      <Link
+        href="/services/steel-fixing"
+        className="inline-block mt-6 text-yellow-500 font-bold hover:text-yellow-400 transition"
+      >
+        View Projects →
+      </Link>
     </div>
 
-
-
-
-    <div className="group border border-yellow-500/30 rounded-xl p-10 bg-black hover:-translate-y-2 transition duration-300">
-
-      <h3 className="text-2xl font-bold text-yellow-500 mb-4">
+    {/* Concrete */}
+    <div className="border border-yellow-500/30 rounded-xl p-10 bg-black/40 hover:border-yellow-500 transition">
+      <h3 className="text-2xl font-bold text-yellow-500">
         Concrete
       </h3>
 
-      <p className="text-gray-300 leading-relaxed">
-        Quality concrete placement for residential
-        and commercial construction projects.
+      <p className="mt-4 text-gray-300 leading-7">
+        High-quality concrete placement and finishing for residential,
+        commercial and civil construction projects, delivered with
+        precision, safety and exceptional workmanship.
       </p>
 
+      <Link
+        href="/services/concrete"
+        className="inline-block mt-6 text-yellow-500 font-bold hover:text-yellow-400 transition"
+      >
+        View Projects →
+      </Link>
     </div>
 
-
-
   </div>
-
-
 </section>
+
       {/* About */}
 
 <section id="about" className="py-24 px-8 bg-black fade-up">
