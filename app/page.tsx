@@ -354,7 +354,7 @@ export default function Home() {
         </p>
 
         <p>
-          ✉ info@starwoodconstructions.com.au
+          ✉ starwood.construction1@gmail.com
         </p>
 
       </div>
@@ -488,7 +488,7 @@ export default function Home() {
 
 
       <p className="text-gray-300 mt-2">
-        Email: info@starwoodconstructions.com.au
+        Email: starwood.construction1@gmail.com
       </p>
 
 

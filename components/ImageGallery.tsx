@@ -4,9 +4,15 @@ import { useState } from "react";
 import Image from "next/image";
 
 const images = [
+  
+ {
+    file: "maroubra-level1-soffit3.jpeg",
+    title: "Maroubra Level 1 Soffit",
+    category: "Formwork",
+  },
   {
-    file: "bondi ground floor soffit.jpg",
-    title: "Bondi Ground Floor Slab Soffit",
+    file: "pemulway-suspended.png",
+    title: "Pemulwuy Suspended Slab Works",
     category: "Formwork",
   },
   {
@@ -25,6 +31,11 @@ const images = [
     category: "Stairs",
   },
   {
+    file: "stair Leppington college 2.jpg",
+    title: "Leppington College Stair Formwork",
+    category: "Stairs",
+  },
+  {
     file: "maroubra 1st floor slab poured.jpg",
     title: "Maroubra First Floor Slab Pour",
     category: "Concrete",
@@ -34,11 +45,7 @@ const images = [
     title: "Maroubra First Floor Concrete Pour",
     category: "Concrete",
   },
-  {
-    file: "maroubra 1st floor soffit.jpg",
-    title: "Maroubra First Floor Soffit",
-    category: "Formwork",
-  },
+ 
   {
     file: "randwick mass concrete 2.jpg",
     title: "Randwick Mass Concrete Works",
@@ -49,11 +56,7 @@ const images = [
     title: "Randwick Concrete Structure",
     category: "Concrete",
   },
-  {
-    file: "randwick mass concrete.jpg",
-    title: "Randwick Mass Concrete",
-    category: "Concrete",
-  },
+ 
   {
     file: "randwick retaining wall.jpg",
     title: "Randwick Retaining Wall",
@@ -64,11 +67,7 @@ const images = [
     title: "Maroubra Slab Reinforcement",
     category: "Reinforcement",
   },
-  {
-    file: "stair Leppington college 2.jpg",
-    title: "Leppington College Stair Formwork",
-    category: "Stairs",
-  },
+  
   {
     file: "stair maroubra.jpg",
     title: "Maroubra Stair Formwork",
@@ -79,15 +78,19 @@ const images = [
     title: "Maroubra Pre-Pour Formwork Preparation",
     category: "Formwork",
   },
+
+  // ✅ NEW IMAGES ADDED
+  
+  {
+    file: "maroubra-storey-street.png",
+    title: "Maroubra Street-Level Structure",
+    category: "Formwork",
+  },
 ];
 
-
 export default function ImageGallery() {
-
   const [selected, setSelected] = useState<number | null>(null);
-
   const [category, setCategory] = useState("All");
-
 
   const categories = [
     "All",
@@ -98,44 +101,30 @@ export default function ImageGallery() {
     "Retaining Walls",
   ];
 
-
   const filteredImages =
     category === "All"
       ? images
-      : images.filter(
-          (image) => image.category === category
-        );
-
+      : images.filter((image) => image.category === category);
 
   function nextImage() {
     if (selected === null) return;
 
-    setSelected(
-      (selected + 1) % filteredImages.length
-    );
+    setSelected((selected + 1) % filteredImages.length);
   }
-
 
   function previousImage() {
     if (selected === null) return;
 
     setSelected(
-      (selected - 1 + filteredImages.length) %
-      filteredImages.length
+      (selected - 1 + filteredImages.length) % filteredImages.length
     );
   }
 
-
   return (
     <>
-
-
       {/* Category Buttons */}
-
       <div className="flex flex-wrap justify-center gap-4 mb-12">
-
         {categories.map((item) => (
-
           <button
             key={item}
             onClick={() => {
@@ -150,85 +139,54 @@ export default function ImageGallery() {
           >
             {item}
           </button>
-
         ))}
-
       </div>
-
-
 
       {/* Gallery */}
-
       <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-
-
-        {filteredImages.map((image, index) => (
-
+        {filteredImages.map((image) => (
           <div
             key={image.file}
-            onClick={() => setSelected(index)}
+            onClick={() =>
+              setSelected(
+                images.findIndex((img) => img.file === image.file)
+              )
+            }
             className="cursor-pointer rounded-xl overflow-hidden border border-yellow-500/30 group"
           >
-
             <div className="relative overflow-hidden">
+              <Image
+                src={`/images/${image.file}`}
+                alt={image.title}
+                width={800}
+                height={600}
+                className="w-full h-72 object-cover group-hover:scale-110 transition duration-700"
+              />
 
-  <Image
-    src={`/images/${image.file}`}
-    alt={image.title}
-    width={800}
-    height={600}
-    className="w-full h-72 object-cover group-hover:scale-110 transition duration-700"
-  />
-
-
-  <div className="absolute top-4 left-4 bg-yellow-500 text-black text-xs font-bold px-4 py-2 rounded-full">
-    {image.category}
-  </div>
-
-</div>
-    
-
-
-            <div className="p-4 bg-black">
-
-              <h3 className="text-yellow-500 font-bold">
-                {image.title}
-              </h3>
-
-              <p className="text-gray-400 text-sm mt-2">
-  Starwood Constructions • {image.category}
-</p>
-
+              <div className="absolute top-4 left-4 bg-yellow-500 text-black text-xs font-bold px-4 py-2 rounded-full">
+                {image.category}
+              </div>
             </div>
 
-
+            <div className="p-4 bg-black">
+              <h3 className="text-yellow-500 font-bold">{image.title}</h3>
+              <p className="text-gray-400 text-sm mt-2">
+                Starwood Constructions • {image.category}
+              </p>
+            </div>
           </div>
-
         ))}
-
-
       </div>
 
-
-
-
       {/* Lightbox */}
-
       {selected !== null && (
-
-        <div
-  className="fixed top-0 left-0 w-screen h-screen bg-black/95 backdrop-blur-sm z-[999] flex items-center justify-center px-4 overflow-hidden"
->
-
-
+        <div className="fixed top-0 left-0 w-screen h-screen bg-black/95 backdrop-blur-sm z-[999] flex items-center justify-center px-4 overflow-hidden">
           <button
             onClick={() => setSelected(null)}
             className="absolute top-6 right-6 w-12 h-12 rounded-full bg-black/60 border border-yellow-500/40 text-white text-3xl hover:bg-red-600 transition"
           >
             ×
           </button>
-
-
 
           <button
             onClick={previousImage}
@@ -237,15 +195,11 @@ export default function ImageGallery() {
             ‹
           </button>
 
-
-
           <img
-  src={`/images/${images[selected].file}`}
-  alt={images[selected].title}
-  className="w-auto h-auto max-h-[75vh] max-w-[95vw] object-contain rounded-xl shadow-2xl border border-yellow-500/30"
-/>
-
-
+            src={`/images/${images[selected].file}`}
+            alt={images[selected].title}
+            className="w-auto h-auto max-h-[75vh] max-w-[95vw] object-contain rounded-xl shadow-2xl border border-yellow-500/30"
+          />
 
           <button
             onClick={nextImage}
@@ -253,13 +207,8 @@ export default function ImageGallery() {
           >
             ›
           </button>
-
-
         </div>
-
       )}
-
-
     </>
   );
 }
