@@ -4,8 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 const images = [
-  
- {
+  {
     file: "maroubra-level1-soffit3.jpeg",
     title: "Maroubra Level 1 Soffit",
     category: "Formwork",
@@ -45,7 +44,6 @@ const images = [
     title: "Maroubra First Floor Concrete Pour",
     category: "Concrete",
   },
- 
   {
     file: "randwick mass concrete 2.jpg",
     title: "Randwick Mass Concrete Works",
@@ -56,7 +54,6 @@ const images = [
     title: "Randwick Concrete Structure",
     category: "Concrete",
   },
- 
   {
     file: "randwick retaining wall.jpg",
     title: "Randwick Retaining Wall",
@@ -67,7 +64,6 @@ const images = [
     title: "Maroubra Slab Reinforcement",
     category: "Reinforcement",
   },
-  
   {
     file: "stair maroubra.jpg",
     title: "Maroubra Stair Formwork",
@@ -78,9 +74,6 @@ const images = [
     title: "Maroubra Pre-Pour Formwork Preparation",
     category: "Formwork",
   },
-
-  // ✅ NEW IMAGES ADDED
-  
   {
     file: "maroubra-storey-street.png",
     title: "Maroubra Street-Level Structure",
@@ -89,7 +82,7 @@ const images = [
 ];
 
 export default function ImageGallery() {
-  const [selected, setSelected] = useState<number | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
   const [category, setCategory] = useState("All");
 
   const categories = [
@@ -106,24 +99,27 @@ export default function ImageGallery() {
       ? images
       : images.filter((image) => image.category === category);
 
-  function nextImage() {
-    if (selected === null) return;
+  const currentIndex = selected
+    ? filteredImages.findIndex((img) => img.file === selected)
+    : -1;
 
-    setSelected((selected + 1) % filteredImages.length);
+  function nextImage() {
+    if (!selected || currentIndex === -1) return;
+    const next = (currentIndex + 1) % filteredImages.length;
+    setSelected(filteredImages[next].file);
   }
 
   function previousImage() {
-    if (selected === null) return;
-
-    setSelected(
-      (selected - 1 + filteredImages.length) % filteredImages.length
-    );
+    if (!selected || currentIndex === -1) return;
+    const prev =
+      (currentIndex - 1 + filteredImages.length) % filteredImages.length;
+    setSelected(filteredImages[prev].file);
   }
 
   return (
     <>
       {/* Category Buttons */}
-      <div className="flex flex-wrap justify-center gap-4 mb-12">
+      <div className="flex flex-wrap justify-center gap-4 mb-10 px-4">
         {categories.map((item) => (
           <button
             key={item}
@@ -131,7 +127,7 @@ export default function ImageGallery() {
               setCategory(item);
               setSelected(null);
             }}
-            className={`px-6 py-3 rounded-full border transition ${
+            className={`px-5 py-2 rounded-full border transition text-sm sm:text-base ${
               category === item
                 ? "bg-yellow-500 text-black border-yellow-500"
                 : "border-yellow-500/40 text-yellow-500 hover:bg-yellow-500/10"
@@ -143,15 +139,11 @@ export default function ImageGallery() {
       </div>
 
       {/* Gallery */}
-      <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto px-4">
         {filteredImages.map((image) => (
           <div
             key={image.file}
-            onClick={() =>
-              setSelected(
-                images.findIndex((img) => img.file === image.file)
-              )
-            }
+            onClick={() => setSelected(image.file)}
             className="cursor-pointer rounded-xl overflow-hidden border border-yellow-500/30 group"
           >
             <div className="relative overflow-hidden">
@@ -179,8 +171,9 @@ export default function ImageGallery() {
       </div>
 
       {/* Lightbox */}
-      {selected !== null && (
-        <div className="fixed top-0 left-0 w-screen h-screen bg-black/95 backdrop-blur-sm z-[999] flex items-center justify-center px-4 overflow-hidden">
+      {selected && (
+        <div className="fixed inset-0 bg-black/95 z-[999] flex items-center justify-center px-4">
+          {/* Close */}
           <button
             onClick={() => setSelected(null)}
             className="absolute top-6 right-6 w-12 h-12 rounded-full bg-black/60 border border-yellow-500/40 text-white text-3xl hover:bg-red-600 transition"
@@ -188,22 +181,27 @@ export default function ImageGallery() {
             ×
           </button>
 
+          {/* Prev */}
           <button
             onClick={previousImage}
-            className="absolute left-5 text-yellow-500 text-5xl"
+            className="absolute left-4 sm:left-8 text-yellow-500 text-5xl"
           >
             ‹
           </button>
 
-          <img
-            src={`/images/${images[selected].file}`}
-            alt={images[selected].title}
-            className="w-auto h-auto max-h-[75vh] max-w-[95vw] object-contain rounded-xl shadow-2xl border border-yellow-500/30"
+          {/* Image */}
+          <Image
+            src={`/images/${selected}`}
+            alt="Selected image"
+            width={1200}
+            height={900}
+            className="max-h-[75vh] max-w-[95vw] object-contain rounded-xl shadow-2xl border border-yellow-500/30"
           />
 
+          {/* Next */}
           <button
             onClick={nextImage}
-            className="absolute right-5 text-yellow-500 text-5xl"
+            className="absolute right-4 sm:right-8 text-yellow-500 text-5xl"
           >
             ›
           </button>

@@ -2,13 +2,21 @@ import { Resend } from "resend";
 
 export async function POST(req: Request) {
   try {
-    console.log("API KEY =", process.env.RESEND_API_KEY);
+    const apiKey = process.env.RESEND_API_KEY;
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    if (!apiKey) {
+      console.error("Missing RESEND_API_KEY");
+      return Response.json(
+        { error: "Server configuration error" },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(apiKey);
 
     const { name, phone, email, service, message } = await req.json();
 
-    const { error } = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: "Starwood Constructions <quotes@starwoodconstructions.com.au>",
       to: "starwood.construction1@gmail.com",
       subject: `New Quote Request - ${service}`,
@@ -29,14 +37,14 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      console.error(error);
+      console.error("Resend error:", error);
       return Response.json({ error }, { status: 500 });
     }
 
-    return Response.json({ success: true });
+    return Response.json({ success: true, data });
 
   } catch (error) {
-    console.error(error);
+    console.error("API crash:", error);
     return Response.json(
       { error: "Something went wrong." },
       { status: 500 }
