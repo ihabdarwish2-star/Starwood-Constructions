@@ -1,11 +1,23 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "@/components/MobileMenu";
 import ImageGallery from "@/components/ImageGallery";
+import useScrollFadeIn from "@/hooks/useScrollFadeIn";
+import FloatingButtons from "@/components/FloatingButtons";
+import Testimonials from "@/components/Testimonials";
 
 export default function Home() {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  useScrollFadeIn();
+
   return (
     <main className="bg-black text-white min-h-screen">
+  <FloatingButtons />
+
+
 
       {/* Navigation */}
     <nav className="sticky top-0 z-50 h-30 flex justify-between items-center px-8 bg-black/90 backdrop-blur border-b border-yellow-500/20">
@@ -18,6 +30,7 @@ export default function Home() {
   alt="Starwood Constructions Logo"
   width={300}
   height={300}
+  priority
  className="object-contain w-35 h-35 md:w-52 md:h-52 -translate-y-2 md:translate-y-3"
 />
 
@@ -55,12 +68,18 @@ export default function Home() {
 
 <section
   id="home"
-  className="relative min-h-[90vh] flex items-center justify-center px-6 bg-cover bg-center overflow-hidden fade-up"
-  style={{
-    backgroundImage: "url('/images/homebush-slab.jpg')",
-  }}
+  className="relative min-h-[90vh] flex items-center justify-center px-6 overflow-hidden fade-up"
 >
 
+  {/* Background image (optimized, priority-loaded since it's the LCP element) */}
+  <Image
+    src="/images/homebush-slab.jpg"
+    alt="Starwood Constructions formwork slab project in Homebush"
+    fill
+    priority
+    sizes="100vw"
+    className="object-cover"
+  />
 
   {/* Dark Overlay */}
 
@@ -112,20 +131,21 @@ export default function Home() {
     <div className="mt-10 flex flex-col sm:flex-row justify-center gap-5">
 
 
-      <a
-        href="#contact"
+      
+        <a
+           href="#contact"
         className="bg-yellow-500 text-black px-10 py-4 rounded-lg font-bold hover:bg-yellow-600 transition"
       >
         Request a Quote
       </a>
 
-
-
-      <a
+      
+        <a
         href="#projects"
         className="border border-yellow-500 text-yellow-500 px-10 py-4 rounded-lg hover:bg-yellow-500/10 transition"
       >
         View Our Work
+    
       </a>
 
 
@@ -319,6 +339,13 @@ export default function Home() {
 
 </section>
 
+<Testimonials />
+
+     {/* Contact */}
+<section id="contact" className="py-24 px-8 bg-zinc-950 fade-up">
+
+</section>
+
         
 
      {/* Contact */}
@@ -364,76 +391,149 @@ export default function Home() {
 
 
 
-    {/* Quote Form */}
+   {/* Quote Form */}
 
-    <form className="grid gap-6 bg-black p-8 rounded-xl border border-yellow-500/30">
+<form
+  className="grid gap-6 bg-black p-8 rounded-xl border border-yellow-500/30"
+  onSubmit={async (e) => {
+    e.preventDefault();
 
+    const form = e.currentTarget;
 
-      <input
-        type="text"
-        placeholder="Your Name"
-        className="bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white"
-      />
+    // Honeypot check — bots tend to fill every field, humans never see this one
+    const honeypot = (form.elements.namedItem("company") as HTMLInputElement)?.value;
+    if (honeypot) {
+      // Silently pretend success so bots don't learn anything from the response
+      form.reset();
+      return;
+    }
 
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      service: (form.elements.namedItem("service") as HTMLSelectElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
 
-      <input
-        type="tel"
-        placeholder="Phone Number"
-        className="bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white"
-      />
+    setStatus("loading");
 
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-      <input
-        type="email"
-        placeholder="Email Address"
-        className="bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white"
-      />
+      if (!res.ok) {
+        throw new Error("Failed to send");
+      }
 
+      setStatus("success");
+      form.reset();
+    } catch (error) {
+      setStatus("error");
+    }
+  }}
+>
+  {/* Honeypot field — hidden from real users via CSS, bots often fill it anyway */}
+  <input
+    name="company"
+    type="text"
+    tabIndex={-1}
+    autoComplete="off"
+    className="absolute left-[-9999px] w-px h-px overflow-hidden"
+    aria-hidden="true"
+  />
 
-      <select
-        className="bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg text-gray-300"
-      >
+  <div>
+    <label htmlFor="name" className="sr-only">Your Name</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      placeholder="Your Name"
+      required
+      className="w-full bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white"
+    />
+  </div>
 
-        <option>
-          Select Service
-        </option>
+  <div>
+    <label htmlFor="phone" className="sr-only">Phone Number</label>
+    <input
+      id="phone"
+      name="phone"
+      type="tel"
+      placeholder="Phone Number"
+      required
+      className="w-full bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white"
+    />
+  </div>
 
-        <option>
-          Formwork
-        </option>
+  <div>
+    <label htmlFor="email" className="sr-only">Email Address</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      placeholder="Email Address"
+      required
+      className="w-full bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white"
+    />
+  </div>
 
-        <option>
-          Steel Fixing
-        </option>
+  <div>
+    <label htmlFor="service" className="sr-only">Select Service</label>
+    <select
+      id="service"
+      name="service"
+      required
+      defaultValue=""
+      className="w-full bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg text-gray-300"
+    >
+      <option value="" disabled>Select Service</option>
+      <option value="Formwork">Formwork</option>
+      <option value="Steel Fixing">Steel Fixing</option>
+      <option value="Concrete">Concrete</option>
+      <option value="Retaining Walls">Retaining Walls</option>
+    </select>
+  </div>
 
-        <option>
-          Concrete
-        </option>
+  <div>
+    <label htmlFor="message" className="sr-only">Project Details</label>
+    <textarea
+      id="message"
+      name="message"
+      placeholder="Project Details"
+      rows={5}
+      required
+      className="w-full bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white resize-none"
+    />
+  </div>
 
-        <option>
-          Retaining Walls
-        </option>
+  <button
+    type="submit"
+    disabled={status === "loading"}
+    className="bg-yellow-500 text-black py-4 rounded-lg font-bold hover:bg-yellow-600 transition disabled:opacity-60 disabled:cursor-not-allowed"
+  >
+    {status === "loading" ? "Sending..." : "Send Request"}
+  </button>
 
-      </select>
+  {/* Inline status messages instead of browser alert() */}
+  {status === "success" && (
+    <p role="status" className="text-green-400 text-center font-medium">
+      Quote request sent successfully! We&apos;ll be in touch soon.
+    </p>
+  )}
 
-
-
-      <textarea
-        placeholder="Project Details"
-        rows={5}
-        className="bg-zinc-950 border border-yellow-500/30 px-5 py-4 rounded-lg focus:outline-none focus:border-yellow-500 text-white resize-none"
-      />
-
-
-      <button
-        type="submit"
-        className="bg-yellow-500 text-black py-4 rounded-lg font-bold hover:bg-yellow-600 transition"
-      >
-        Send Request
-      </button>
-
-
-    </form>
+  {status === "error" && (
+    <p role="alert" className="text-red-400 text-center font-medium">
+      Something went wrong. Please try again or call us directly.
+    </p>
+  )}
+</form>
 
 
   </div>
