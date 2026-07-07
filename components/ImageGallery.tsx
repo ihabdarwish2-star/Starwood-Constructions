@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const images = [
@@ -15,62 +15,62 @@ const images = [
     category: "Formwork",
   },
   {
-    file: "finish stair Leppington school front.jpg",
+    file: "finish-stair-leppington-school-front.jpg",
     title: "Leppington School Stair Finish",
     category: "Stairs",
   },
   {
-    file: "finished look stair soffit.jpg",
+    file: "finished-look-stair-soffit.jpg",
     title: "Finished Stair Soffit",
     category: "Stairs",
   },
   {
-    file: "finished stair Leppington back.jpg",
+    file: "finished-stair-leppington-back.jpg",
     title: "Leppington Stair Rear Finish",
     category: "Stairs",
   },
   {
-    file: "stair Leppington college 2.jpg",
+    file: "stair-leppington-college-2.jpg",
     title: "Leppington College Stair Formwork",
     category: "Stairs",
   },
   {
-    file: "maroubra 1st floor slab poured.jpg",
+    file: "maroubra-1st-floor-slab-poured.jpg",
     title: "Maroubra First Floor Slab Pour",
     category: "Concrete",
   },
   {
-    file: "maroubra 1st floor slab pouring.jpg",
+    file: "maroubra-1st-floor-slab-pouring.jpg",
     title: "Maroubra First Floor Concrete Pour",
     category: "Concrete",
   },
   {
-    file: "randwick mass concrete 2.jpg",
+    file: "randwick-mass-concrete-2.jpg",
     title: "Randwick Mass Concrete Works",
     category: "Concrete",
   },
   {
-    file: "randwick mass concrete 3.jpg",
+    file: "randwick-mass-concrete-3.jpg",
     title: "Randwick Concrete Structure",
     category: "Concrete",
   },
   {
-    file: "randwick retaining wall.jpg",
+    file: "randwick-retaining-wall.jpg",
     title: "Randwick Retaining Wall",
     category: "Retaining Walls",
   },
   {
-    file: "reinforcement slab maroubra.jpg",
+    file: "reinforcement-slab-maroubra.jpg",
     title: "Maroubra Slab Reinforcement",
     category: "Reinforcement",
   },
   {
-    file: "stair maroubra.jpg",
+    file: "stair-maroubra.jpg",
     title: "Maroubra Stair Formwork",
     category: "Stairs",
   },
   {
-    file: "top formwork prepour Maroubra.jpg",
+    file: "top-formwork-prepour-maroubra.jpg",
     title: "Maroubra Pre-Pour Formwork Preparation",
     category: "Formwork",
   },
@@ -82,7 +82,8 @@ const images = [
 ];
 
 export default function ImageGallery() {
-  const [selected, setSelected] = useState<string | null>(null);
+  // `selected` is always an index INTO filteredImages, never the full images array.
+  const [selected, setSelected] = useState<number | null>(null);
   const [category, setCategory] = useState("All");
 
   const categories = [
@@ -99,27 +100,41 @@ export default function ImageGallery() {
       ? images
       : images.filter((image) => image.category === category);
 
-  const currentIndex = selected
-    ? filteredImages.findIndex((img) => img.file === selected)
-    : -1;
-
   function nextImage() {
-    if (!selected || currentIndex === -1) return;
-    const next = (currentIndex + 1) % filteredImages.length;
-    setSelected(filteredImages[next].file);
+    if (selected === null) return;
+    setSelected((selected + 1) % filteredImages.length);
   }
 
   function previousImage() {
-    if (!selected || currentIndex === -1) return;
-    const prev =
-      (currentIndex - 1 + filteredImages.length) % filteredImages.length;
-    setSelected(filteredImages[prev].file);
+    if (selected === null) return;
+    setSelected((selected - 1 + filteredImages.length) % filteredImages.length);
   }
+
+  useEffect(() => {
+    if (selected === null) return;
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setSelected(null);
+      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") previousImage();
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected, filteredImages.length]);
+
+  useEffect(() => {
+    document.body.style.overflow = selected !== null ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selected]);
 
   return (
     <>
       {/* Category Buttons */}
-      <div className="flex flex-wrap justify-center gap-4 mb-10 px-4">
+      <div className="flex flex-wrap justify-center gap-4 mb-12">
         {categories.map((item) => (
           <button
             key={item}
@@ -127,7 +142,7 @@ export default function ImageGallery() {
               setCategory(item);
               setSelected(null);
             }}
-            className={`px-5 py-2 rounded-full border transition text-sm sm:text-base ${
+            className={`px-6 py-3 rounded-full border transition ${
               category === item
                 ? "bg-yellow-500 text-black border-yellow-500"
                 : "border-yellow-500/40 text-yellow-500 hover:bg-yellow-500/10"
@@ -139,11 +154,11 @@ export default function ImageGallery() {
       </div>
 
       {/* Gallery */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto px-4">
-        {filteredImages.map((image) => (
+      <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        {filteredImages.map((image, index) => (
           <div
             key={image.file}
-            onClick={() => setSelected(image.file)}
+            onClick={() => setSelected(index)}
             className="cursor-pointer rounded-xl overflow-hidden border border-yellow-500/30 group"
           >
             <div className="relative overflow-hidden">
@@ -171,40 +186,45 @@ export default function ImageGallery() {
       </div>
 
       {/* Lightbox */}
-      {selected && (
-        <div className="fixed inset-0 bg-black/95 z-[999] flex items-center justify-center px-4">
-          {/* Close */}
+      {selected !== null && (
+        <div className="fixed top-0 left-0 w-screen h-screen bg-black/95 backdrop-blur-sm z-[999] flex items-center justify-center px-4 overflow-hidden">
           <button
             onClick={() => setSelected(null)}
+            aria-label="Close"
             className="absolute top-6 right-6 w-12 h-12 rounded-full bg-black/60 border border-yellow-500/40 text-white text-3xl hover:bg-red-600 transition"
           >
             ×
           </button>
 
-          {/* Prev */}
           <button
             onClick={previousImage}
-            className="absolute left-4 sm:left-8 text-yellow-500 text-5xl"
+            aria-label="Previous image"
+            className="absolute left-5 text-yellow-500 text-5xl"
           >
             ‹
           </button>
 
-          {/* Image */}
-          <Image
-            src={`/images/${selected}`}
-            alt="Selected image"
-            width={1200}
-            height={900}
-            className="max-h-[75vh] max-w-[95vw] object-contain rounded-xl shadow-2xl border border-yellow-500/30"
-          />
+          <div className="relative w-[95vw] h-[75vh]">
+            <Image
+              src={`/images/${filteredImages[selected].file}`}
+              alt={filteredImages[selected].title}
+              fill
+              sizes="95vw"
+              className="object-contain rounded-xl shadow-2xl"
+            />
+          </div>
 
-          {/* Next */}
           <button
             onClick={nextImage}
-            className="absolute right-4 sm:right-8 text-yellow-500 text-5xl"
+            aria-label="Next image"
+            className="absolute right-5 text-yellow-500 text-5xl"
           >
             ›
           </button>
+
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-gray-300 text-sm bg-black/60 px-4 py-2 rounded-full border border-yellow-500/20">
+            {selected + 1} of {filteredImages.length} — {filteredImages[selected].title}
+          </div>
         </div>
       )}
     </>
