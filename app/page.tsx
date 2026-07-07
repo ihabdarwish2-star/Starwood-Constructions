@@ -8,6 +8,7 @@ import ImageGallery from "@/components/ImageGallery";
 import useScrollFadeIn from "@/hooks/useScrollFadeIn";
 import FloatingButtons from "@/components/FloatingButtons";
 import Testimonials from "@/components/Testimonials";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -341,11 +342,7 @@ export default function Home() {
 
 <Testimonials />
 
-     {/* Contact */}
-<section id="contact" className="py-24 px-8 bg-zinc-950 fade-up">
-
-</section>
-
+  
         
 
      {/* Contact */}
@@ -539,106 +536,7 @@ export default function Home() {
   </div>
 
 </section>
-      {/* Footer */}
-
-<footer className="border-t border-yellow-500/20 py-12 px-8 bg-zinc-950">
-
-
-  <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
-
-
-
-    <div>
-
-      <h2 className="text-3xl font-bold text-yellow-500">
-        STARWOOD
-      </h2>
-
-
-      <p className="text-gray-400 mt-4">
-        Premium Formwork • Steel Fixing • Concrete
-      </p>
-
-
-      <p className="text-gray-500 mt-4 text-sm">
-        Building strong structures across Sydney.
-      </p>
-
-    </div>
-
-
-
-
-
-    <div>
-
-      <h3 className="text-yellow-500 font-bold mb-5">
-        Contact
-      </h3>
-
-
-      <p className="text-gray-300">
-        Sydney, NSW
-      </p>
-
-
-      <p className="text-gray-300 mt-2">
-        Phone: 0450 890 096
-      </p>
-
-
-      <p className="text-gray-300 mt-2">
-        Email: starwood.construction1@gmail.com
-      </p>
-
-
-    </div>
-
-
-
-
-
-    <div>
-
-      <h3 className="text-yellow-500 font-bold mb-5">
-        Services
-      </h3>
-
-
-      <p className="text-gray-300">
-        Formwork
-      </p>
-
-
-      <p className="text-gray-300 mt-2">
-        Steel Fixing
-      </p>
-
-
-      <p className="text-gray-300 mt-2">
-        Concrete
-      </p>
-
-
-    </div>
-
-
-
-  </div>
-
-
-
-
-
-  <div className="text-center text-gray-500 text-sm mt-12 border-t border-yellow-500/10 pt-6">
-
-    © 2026 Starwood Constructions. All Rights Reserved.
-
-  </div>
-
-
-
-</footer>
+<Footer />
     </main>
   );
 }
