@@ -7,7 +7,11 @@ import { useEffect } from "react";
  * the first time it scrolls into the viewport, triggering the CSS
  * animation defined in globals.css.
  *
- * Usage: call useScrollFadeIn() once near the top of your page component.
+ * threshold is intentionally very low (0.01) because some sections
+ * (like the image gallery) are much taller than a mobile viewport —
+ * a higher threshold like 0.15 would require 15% of the WHOLE section
+ * to be visible at once, which may never happen on short screens,
+ * leaving the section permanently invisible (opacity: 0).
  */
 export default function useScrollFadeIn() {
   useEffect(() => {
@@ -18,14 +22,13 @@ export default function useScrollFadeIn() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("in-view");
-            // Only needs to fade in once, so stop watching it after that
             observer.unobserve(entry.target);
           }
         });
       },
       {
-        threshold: 0.15, // fires once 15% of the section is visible
-        rootMargin: "0px 0px -50px 0px", // triggers slightly before it's fully in view
+        threshold: 0.01, // fires as soon as almost any part is visible
+        rootMargin: "0px 0px -10px 0px",
       }
     );
 
