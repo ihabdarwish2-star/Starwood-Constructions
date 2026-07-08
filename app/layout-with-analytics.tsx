@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,7 +29,6 @@ export const metadata: Metadata = {
     "commercial construction Sydney",
   ],
 
-  // Controls the preview card when your link is shared on Facebook, WhatsApp, LinkedIn, etc.
   openGraph: {
     title: "Starwood Constructions | Formwork, Steel Fixing & Concrete Sydney",
     description:
@@ -47,7 +47,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 
-  // Controls the preview card specifically on Twitter/X
   twitter: {
     card: "summary_large_image",
     title: "Starwood Constructions | Formwork, Steel Fixing & Concrete Sydney",
@@ -64,10 +63,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
+
+  // Verifies site ownership for Google Search Console
+  verification: {
+    google: "7mn8oLAU9HAxmU5kk0hapkD-X80m6617h2pAou0deXA",
+  },
 };
 
-// Structured data (JSON-LD) telling Google this is a local business —
-// helps with local search results and Google's business knowledge panel.
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
@@ -108,6 +110,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-black text-white">
         {children}
+        <Analytics />
       </body>
     </html>
   );
