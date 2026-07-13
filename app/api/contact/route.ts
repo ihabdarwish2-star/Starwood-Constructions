@@ -1,7 +1,45 @@
 import { Resend } from "resend";
 
+// --- Simple in-memory rate limiter ---
+// Limits each IP to 5 requests per hour. This is intentionally basic
+// (resets if the server restarts/redeploys) but stops the most common
+// abuse case: someone spamming the form repeatedly by hand or with a
+// basic script. For stronger protection at scale, a persistent store
+// like Vercel KV or Upstash Redis would be the next step.
+const RATE_LIMIT = 5;
+const WINDOW_MS = 60 * 60 * 1000; // 1 hour
+
+const requestLog = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = requestLog.get(ip) ?? [];
+
+  // Keep only requests from within the current window
+  const recent = timestamps.filter((t) => now - t < WINDOW_MS);
+
+  if (recent.length >= RATE_LIMIT) {
+    requestLog.set(ip, recent);
+    return true;
+  }
+
+  recent.push(now);
+  requestLog.set(ip, recent);
+  return false;
+}
+
 export async function POST(req: Request) {
   try {
+    // Vercel passes the real client IP in this header
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+
+    if (isRateLimited(ip)) {
+      return Response.json(
+        { error: "Too many requests. Please try again later or call us directly." },
+        { status: 429 }
+      );
+    }
+
     const apiKey = process.env.RESEND_API_KEY;
 
     if (!apiKey) {
@@ -16,7 +54,6 @@ export async function POST(req: Request) {
 
     const { name, phone, email, service, message } = await req.json();
 
-    // Email 1: notify Starwood of the new quote request (unchanged from before)
     const { data, error } = await resend.emails.send({
       from: "Starwood Constructions <quotes@starwoodconstructions.com.au>",
       to: "starwood.construction1@gmail.com",
@@ -42,11 +79,6 @@ export async function POST(req: Request) {
       return Response.json({ error }, { status: 500 });
     }
 
-    // Email 2: confirmation sent to the customer.
-    // This runs only after the main notification succeeds. If it fails,
-    // we log it but still return success — the customer's request was
-    // received either way, so a failed confirmation shouldn't show them
-    // an error.
     try {
       await resend.emails.send({
         from: "Starwood Constructions <quotes@starwoodconstructions.com.au>",
@@ -73,8 +105,6 @@ export async function POST(req: Request) {
       });
     } catch (confirmationError) {
       console.error("Customer confirmation email failed:", confirmationError);
-      // Intentionally not returning an error here — the main request
-      // succeeded, so the customer shouldn't see a failure.
     }
 
     return Response.json({ success: true, data });
