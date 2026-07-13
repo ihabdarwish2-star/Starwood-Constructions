@@ -1,27 +1,27 @@
 "use client";
 
-// TODO: Replace these with real customer testimonials once you have them.
-// Structure stays the same — just swap the text, name, and project fields.
+// Real customer reviews from Google. To add more later, follow the same
+// structure — name, project (optional label), quote, and rating.
 const testimonials = [
   {
-    name: "Michael R.",
-    project: "Residential Slab, Maroubra",
+    name: "Oussama al Saytari",
+    project: "Google Review",
     quote:
-      "Starwood handled our formwork and concrete pour from start to finish. The team was punctual, communicated clearly, and the finished slab was dead level.",
+      "I've seen several of Starwood Constructions' completed projects, and the quality is outstanding. Their formwork and concrete finishes are clean, precise, and completed to a very high standard. Highly recommended.",
     rating: 5,
   },
   {
-    name: "Sarah T.",
-    project: "Commercial Fit-out, Sydney CBD",
+    name: "Mahim Hasan",
+    project: "Google Review",
     quote:
-      "We needed steel fixing done fast without cutting corners. Starwood delivered on time and the engineer signed off without a single issue.",
+      "Really good experience with this construction company. The team was easy to deal with, showed up on time, and got the job done properly. Communication was clear the whole way, and they didn't mess around when it came to quality. Everything turned out exactly how I wanted, if not better. Definitely recommended.",
     rating: 5,
   },
   {
-    name: "David K.",
-    project: "Retaining Wall, Randwick",
+    name: "Hany Kassem",
+    project: "Google Review",
     quote:
-      "Professional from quote to completion. Fair pricing, tidy site, and the wall has held up perfectly through a wet summer.",
+      "Thank you for the excellent service from start to finish. Great communication, top-quality workmanship, and a professional team that gets the job done right.",
     rating: 5,
   },
 ];

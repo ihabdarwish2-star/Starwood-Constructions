@@ -2,8 +2,6 @@
 
 import { Phone, Mail, MapPin } from "lucide-react";
 
-// lucide-react removed brand icons, so a small inline SVG is used here too
-// (same approach as FloatingButtons.tsx) for consistency.
 function FacebookIcon({ size = 20 }: { size?: number }) {
   return (
     <svg
@@ -69,9 +67,8 @@ export default function Footer() {
               <FacebookIcon size={18} />
             </a>
 
-            {/* TODO: replace "#" with your actual Instagram profile URL once ready */}
             <a
-              href="#"
+              href="https://www.instagram.com/starwood.constructions?igsh=MXRlemwyaXQzYWxscA=="
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Starwood Constructions on Instagram"
