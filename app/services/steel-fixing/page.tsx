@@ -9,7 +9,7 @@ export default function SteelFixingPage() {
     "/images/maroubra-roof-slab-reo4.jpeg",
     "/images/maroubra-roof-slab-reo5.jpeg",
     "/images/maroubra-roof-slab-reo6.jpeg",
-    "/images/reinforcement slab maroubra.jpg"
+    "/images/reinforcement-slab-maroubra.jpg"
   ];
 
   const maroubraReoVideos = [
