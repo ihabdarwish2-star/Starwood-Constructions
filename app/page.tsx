@@ -10,6 +10,8 @@ import FloatingButtons from "@/components/FloatingButtons";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import AreasWeServe from "@/components/AreasWeServe";
+import StatsBar from "@/components/StatsBar";
+import HowItWorks from "@/components/HowItWorks";
 
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -158,6 +160,11 @@ export default function Home() {
 
 
 </section>
+{/* Hero ends above */}
+
+<StatsBar />
+
+
 {/* Services */}
 <section id="services" className="py-20 px-8 bg-zinc-950">
   <h2 className="text-4xl text-center font-bold text-yellow-500 mb-12">
@@ -228,6 +235,11 @@ export default function Home() {
 
   </div>
 </section>
+{/* Services ends above */}
+
+<HowItWorks />
+
+
 
       {/* About */}
 
