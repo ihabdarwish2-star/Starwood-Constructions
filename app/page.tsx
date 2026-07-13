@@ -9,6 +9,7 @@ import useScrollFadeIn from "@/hooks/useScrollFadeIn";
 import FloatingButtons from "@/components/FloatingButtons";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
+import AreasWeServe from "@/components/AreasWeServe";
 
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -339,6 +340,10 @@ export default function Home() {
 
 
 </section>
+
+{/* Projects section ends above */}
+
+<AreasWeServe />
 
 <Testimonials />
 

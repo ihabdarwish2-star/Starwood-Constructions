@@ -27,6 +27,13 @@ export const metadata: Metadata = {
     "retaining walls Sydney",
     "residential construction Sydney",
     "commercial construction Sydney",
+    "formwork Eastern Suburbs",
+    "concrete Inner West Sydney",
+    "steel fixing Western Sydney",
+    "formwork Maroubra",
+    "concrete Randwick",
+    "formwork Homebush",
+    "concrete contractor Sydney NSW",
   ],
 
   openGraph: {
@@ -85,10 +92,16 @@ const localBusinessSchema = {
     addressRegion: "NSW",
     addressCountry: "AU",
   },
-  areaServed: {
-    "@type": "City",
-    name: "Sydney",
-  },
+  areaServed: [
+    { "@type": "City", name: "Sydney" },
+    { "@type": "Place", name: "Eastern Suburbs, Sydney" },
+    { "@type": "Place", name: "Inner West, Sydney" },
+    { "@type": "Place", name: "North Shore, Sydney" },
+    { "@type": "Place", name: "Western Sydney" },
+    { "@type": "Place", name: "South Sydney" },
+    { "@type": "Place", name: "Hills District, Sydney" },
+    { "@type": "Place", name: "Sutherland Shire, Sydney" },
+  ],
   sameAs: ["https://www.facebook.com/share/17zpuxuD3w/"],
 };
 
