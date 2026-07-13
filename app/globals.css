@@ -48,6 +48,10 @@ html {
   transform: translateY(20px);
 }
 
+.fade-up.in-view {
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
 /* Slow, subtle zoom on the hero background image (Ken Burns effect).
    20s duration keeps it gentle rather than distracting; forwards keeps
    the final zoomed-in state rather than resetting. */
@@ -63,4 +67,3 @@ html {
 .hero-zoom {
   animation: kenBurns 20s ease-out forwards;
 }
-
