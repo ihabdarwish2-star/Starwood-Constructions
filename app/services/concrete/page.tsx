@@ -4,9 +4,9 @@ import Image from "next/image";
 export default function ConcretePage() {
 
   const concreteImages = [
-    "/images/maroubra 1st floor slab poured.jpg",
-    "/images/maroubra 1st floor slab pouring 2.jpg",
-    "/images/maroubra 1st floor slab pouring.jpg",
+    "/images/maroubra-1st-floor-slab-poured.jpg",
+    "/images/maroubra-1st-floor-slab-pouring-2.jpg",
+    "/images/maroubra-1st-floor-slab-pouring.jpg",
     "/images/epping-slab-pour.jpeg"
   ];
 

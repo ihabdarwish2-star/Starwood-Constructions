@@ -21,15 +21,15 @@ export default function FormworkPage() {
     "/images/maroubra-slab-pour-ground4.jpeg",
     "/images/maroubra-stair.jpeg",
     "/images/maroubra-storey-street.png",
-    "/images/stair maroubra.jpg",
-    "/images/top formwork prepour Maroubra.jpg"
+    "/images/stair-maroubra.jpg",
+    "/images/top-formwork-prepour-maroubra.jpg"
   ];
 
   const randwickImages = [
-    "/images/randwick mass concrete 2.jpg",
-    "/images/randwick mass concrete 3.jpg",
-    "/images/randwick mass concrete.jpg",
-    "/images/randwick retaining wall.jpg",
+    "/images/randwick-mass-concrete-2.jpg",
+    "/images/randwick-mass-concrete-3.jpg",
+    "/images/randwick-mass-concrete.jpg",
+    "/images/randwick-retaining-wall.jpg",
     "/images/randwick-hobs.jpeg",
     "/images/randwick-slab-on-ground-reo.jpeg",
     "/images/randwick-slab-on-ground.jpeg",
@@ -40,11 +40,11 @@ export default function FormworkPage() {
   ];
 
   const leppingtonImages = [
-    "/images/stair Leppington college 2.jpg",
-    "/images/stair Leppington school formwork.jpg",
-    "/images/finish stair Leppington school front.jpg",
-    "/images/finished look stair soffit.jpg",
-    "/images/finished stair Leppington back.jpg"
+    "/images/stair-leppington-college-2.jpg",
+    "/images/stair-Leppington-school-formwork.jpg",
+    "/images/finish-stair-leppington-school-front.jpg",
+    "/images/finished-look-stair-soffit.jpg",
+    "/images/finished-stair-leppington-back.jpg"
   ];
 
   const pemulwuyImages = [
