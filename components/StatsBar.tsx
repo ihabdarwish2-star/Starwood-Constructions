@@ -1,7 +1,7 @@
 "use client";
 
 const stats = [
-  { value: "20+", label: "Projects Completed" },
+  { value: "30+", label: "Projects Completed" },
   { value: "5★", label: "Google Reviews" },
   { value: "Sydney-Wide", label: "Service Area" },
   { value: "Free", label: "No-Obligation Quotes" },
