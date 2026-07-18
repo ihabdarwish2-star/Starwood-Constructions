@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import AreasWeServe from "@/components/AreasWeServe";
 import StatsBar from "@/components/StatsBar";
 import HowItWorks from "@/components/HowItWorks";
+import ParallaxHero from "@/components/ParallaxHero";
 
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -76,14 +77,7 @@ export default function Home() {
 >
 
   {/* Background image (optimized, priority-loaded since it's the LCP element) */}
-  <Image
-    src="/images/homebush-slab.jpg"
-    alt="Starwood Constructions formwork slab project in Homebush"
-    fill
-    priority
-    sizes="100vw"
-    className="object-cover"
-  />
+  <ParallaxHero />
 
   {/* Dark Overlay */}
 
