@@ -49,7 +49,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-20 px-8 bg-black fade-up">
+    <section id="testimonials" className="py-20 px-8 bg-black">
       <div className="text-center max-w-3xl mx-auto mb-16">
         <h2 className="text-5xl font-bold text-yellow-500 mb-6">
           What Our Clients Say

@@ -13,6 +13,7 @@ import AreasWeServe from "@/components/AreasWeServe";
 import StatsBar from "@/components/StatsBar";
 import HowItWorks from "@/components/HowItWorks";
 import ParallaxHero from "@/components/ParallaxHero";
+import Reveal from "@/components/Reveal";
 
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -351,7 +352,9 @@ export default function Home() {
 
 <AreasWeServe />
 
-<Testimonials />
+<Reveal>
+  <Testimonials />
+</Reveal>
 
   
         
