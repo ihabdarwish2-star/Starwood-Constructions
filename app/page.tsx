@@ -14,6 +14,7 @@ import StatsBar from "@/components/StatsBar";
 import HowItWorks from "@/components/HowItWorks";
 import ParallaxHero from "@/components/ParallaxHero";
 import Reveal from "@/components/Reveal";
+import PinnedWords from "@/components/PinnedWords";
 
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -156,6 +157,8 @@ export default function Home() {
 
 </section>
 {/* Hero ends above */}
+
+<PinnedWords />
 
 <StatsBar />
 
