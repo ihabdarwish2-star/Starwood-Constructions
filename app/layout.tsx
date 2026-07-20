@@ -85,7 +85,7 @@ const localBusinessSchema = {
     "Premium formwork, steel fixing and concrete solutions for residential and commercial construction projects across Sydney.",
   url: siteUrl,
   telephone: "+61450890096",
-  email: "starwood.construction1@gmail.com",
+  email: "info@starwoodconstructions.com.au",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Sydney",

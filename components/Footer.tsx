@@ -121,12 +121,12 @@ export default function Footer() {
             </a>
 
             <a
-              href="mailto:starwood.construction1@gmail.com"
-              className="flex items-center gap-3 hover:text-yellow-500 transition w-fit break-all"
-            >
-              <Mail size={18} className="text-yellow-500 shrink-0" />
-              starwood.construction1@gmail.com
-            </a>
+              href="mailto:info@starwoodconstructions.com.au"
+  className="flex items-center gap-3 hover:text-yellow-500 transition w-fit break-all"
+>
+  <Mail size={18} className="text-yellow-500 shrink-0" />
+  info@starwoodconstructions.com.au
+</a>
           </div>
         </div>
 
