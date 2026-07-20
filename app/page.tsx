@@ -15,6 +15,9 @@ import HowItWorks from "@/components/HowItWorks";
 import ParallaxHero from "@/components/ParallaxHero";
 import Reveal from "@/components/Reveal";
 import PinnedWords from "@/components/PinnedWords";
+import TypewriterCycle from "@/components/TypewriterCycle";
+
+
 
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -89,14 +92,11 @@ export default function Home() {
 
   <div className="relative text-center max-w-5xl">
 
+<div className="inline-block border border-yellow-500/40 rounded-full px-6 py-2 mb-8">
 
-    <div className="inline-block border border-yellow-500/40 rounded-full px-6 py-2 mb-8">
+  <TypewriterCycle className="text-yellow-500 text-lg font-bold tracking-[0.3em] uppercase" />
 
-      <p className="text-yellow-500 text-sm tracking-[0.3em] uppercase">
-        Sydney Construction Specialists
-      </p>
-
-    </div>
+</div>
 
 
 
