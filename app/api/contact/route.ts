@@ -55,10 +55,10 @@ export async function POST(req: Request) {
     const { name, phone, email, service, message } = await req.json();
 
     const { data, error } = await resend.emails.send({
-      from: "Starwood Constructions <quotes@starwoodconstructions.com.au>",
-      to: "starwood.construction1@gmail.com",
-      subject: `New Quote Request - ${service}`,
-      replyTo: email,
+  from: "Starwood Constructions <quotes@starwoodconstructions.com.au>",
+  to: "info@starwoodconstructions.com.au",
+  subject: `New Quote Request - ${service}`,
+  replyTo: email,
       html: `
         <h2>New Quote Request</h2>
 
