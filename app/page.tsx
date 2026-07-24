@@ -78,7 +78,7 @@ export default function Home() {
 
 <section
   id="home"
-  className="relative min-h-[90vh] flex items-start md:items-center justify-center px-6 overflow-hidden fade-up"
+  className="relative min-h-[90vh] flex flex-col md:flex-row items-center justify-start md:justify-center px-6 overflow-hidden fade-up"
 >
 
 
@@ -87,11 +87,11 @@ export default function Home() {
 
   {/* Dark Overlay */}
 
-  <div className="absolute inset-0 bg-black/70"></div>
+  <div className="hidden md:block absolute inset-0 bg-black/70"></div>
 
 
 
-  <div className="relative text-center max-w-5xl pt-[50vh] md:pt-0">
+  <div className="relative z-10 text-center max-w-5xl py-10 md:py-0">
 
 <div className="inline-block border border-yellow-500/40 rounded-full px-6 py-2 mb-8">
 
