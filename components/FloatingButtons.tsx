@@ -2,8 +2,6 @@
 
 import { Phone, MessageCircle } from "lucide-react";
 
-// lucide-react removed brand icons (Facebook, Twitter, etc.) in recent versions,
-// so inline SVGs are used instead.
 function FacebookIcon({ size = 24 }: { size?: number }) {
   return (
     <svg
@@ -38,18 +36,22 @@ function InstagramIcon({ size = 24 }: { size?: number }) {
   );
 }
 
+// Smaller footprint on mobile (w-11/h-11, tighter gap, closer to the
+// corner) so the stack doesn't cover as much of the screen. Scales back
+// up to the original size on tablet/desktop (md:).
 export default function FloatingButtons() {
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col gap-2.5 md:gap-4">
 
       {/* Call */}
       <a
         href="tel:0450890096"
-        className="group relative w-14 h-14 rounded-full bg-yellow-500 hover:bg-yellow-400 text-black flex items-center justify-center shadow-xl transition duration-300 hover:scale-110"
+        className="group relative w-11 h-11 md:w-14 md:h-14 rounded-full bg-yellow-500 hover:bg-yellow-400 text-black flex items-center justify-center shadow-xl transition duration-300 hover:scale-110"
         aria-label="Call Starwood Constructions"
       >
-        <Phone size={24} />
-        <span className="pointer-events-none absolute right-16 whitespace-nowrap bg-black text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition">
+        <Phone size={18} className="md:hidden" />
+        <Phone size={24} className="hidden md:block" />
+        <span className="pointer-events-none absolute right-14 md:right-16 whitespace-nowrap bg-black text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition">
           Call Us
         </span>
       </a>
@@ -59,12 +61,13 @@ export default function FloatingButtons() {
         href="https://wa.me/61450890096?text=Hi%2C%20I%27d%20like%20to%20request%20a%20quote%20for%20a%20construction%20project."
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative w-14 h-14 rounded-full bg-green-500 hover:bg-green-400 text-white flex items-center justify-center shadow-xl transition duration-300 hover:scale-110"
+        className="group relative w-11 h-11 md:w-14 md:h-14 rounded-full bg-green-500 hover:bg-green-400 text-white flex items-center justify-center shadow-xl transition duration-300 hover:scale-110"
         aria-label="Chat on WhatsApp"
       >
         <span className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span>
-        <MessageCircle size={24} className="relative" />
-        <span className="pointer-events-none absolute right-16 whitespace-nowrap bg-black text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition">
+        <MessageCircle size={18} className="relative md:hidden" />
+        <MessageCircle size={24} className="relative hidden md:block" />
+        <span className="pointer-events-none absolute right-14 md:right-16 whitespace-nowrap bg-black text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition">
           WhatsApp Us
         </span>
       </a>
@@ -74,11 +77,11 @@ export default function FloatingButtons() {
         href="https://www.facebook.com/share/17zpuxuD3w/"
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center shadow-xl transition duration-300 hover:scale-110"
+        className="group relative w-11 h-11 md:w-14 md:h-14 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center shadow-xl transition duration-300 hover:scale-110"
         aria-label="Facebook"
       >
-        <FacebookIcon size={24} />
-        <span className="pointer-events-none absolute right-16 whitespace-nowrap bg-black text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition">
+        <FacebookIcon size={18} />
+        <span className="pointer-events-none absolute right-14 md:right-16 whitespace-nowrap bg-black text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition">
           Follow Us
         </span>
       </a>
@@ -88,11 +91,11 @@ export default function FloatingButtons() {
         href="https://www.instagram.com/starwood.constructions?igsh=MXRlemwyaXQzYWxscA=="
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative w-14 h-14 rounded-full bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 hover:brightness-110 text-white flex items-center justify-center shadow-xl transition duration-300 hover:scale-110"
+        className="group relative w-11 h-11 md:w-14 md:h-14 rounded-full bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 hover:brightness-110 text-white flex items-center justify-center shadow-xl transition duration-300 hover:scale-110"
         aria-label="Instagram"
       >
-        <InstagramIcon size={24} />
-        <span className="pointer-events-none absolute right-16 whitespace-nowrap bg-black text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition">
+        <InstagramIcon size={18} />
+        <span className="pointer-events-none absolute right-14 md:right-16 whitespace-nowrap bg-black text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition">
           Follow Us
         </span>
       </a>
