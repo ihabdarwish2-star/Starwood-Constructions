@@ -17,7 +17,7 @@ const VIDEO_SRC = "/videos/hero-video.mp4";
 
 export default function VideoHero() {
   return (
-    <div className="relative w-full md:absolute md:inset-0 overflow-hidden bg-black">
+    <div className="relative w-auto -mx-6 md:mx-0 md:w-full md:absolute md:inset-0 overflow-hidden bg-black">
       <div className="w-full aspect-video max-h-[50vh] md:max-h-none md:aspect-auto md:h-full">
         <video
           autoPlay
