@@ -91,7 +91,7 @@ export default function Home() {
 
 
 
-  <div className="relative z-10 text-center max-w-5xl py-10 md:py-0">
+  <div className="relative z-10 text-center max-w-5xl pb-4 md:py-0">
 
 <div className="inline-block border border-yellow-500/40 rounded-full px-6 py-2 mb-8">
 
