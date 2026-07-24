@@ -78,8 +78,9 @@ export default function Home() {
 
 <section
   id="home"
-  className="relative min-h-[90vh] flex items-center justify-center px-6 overflow-hidden fade-up"
+  className="relative min-h-[90vh] flex items-start md:items-center justify-center px-6 overflow-hidden fade-up"
 >
+
 
   {/* Background image (optimized, priority-loaded since it's the LCP element) */}
   <VideoHero />
