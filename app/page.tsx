@@ -16,7 +16,7 @@ import ParallaxHero from "@/components/ParallaxHero";
 import Reveal from "@/components/Reveal";
 import PinnedWords from "@/components/PinnedWords";
 import TypewriterCycle from "@/components/TypewriterCycle";
-
+import VideoHero from "@/components/VideoHero";
 
 
 export default function Home() {
@@ -82,7 +82,7 @@ export default function Home() {
 >
 
   {/* Background image (optimized, priority-loaded since it's the LCP element) */}
-  <ParallaxHero />
+  <VideoHero />
 
   {/* Dark Overlay */}
 
