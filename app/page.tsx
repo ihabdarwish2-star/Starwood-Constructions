@@ -33,18 +33,20 @@ export default function Home() {
     <nav className="sticky top-0 z-50 h-30 flex justify-between items-center px-8 bg-black/90 backdrop-blur border-b border-yellow-500/20">
 
 
-  <div className="flex items-center h-full">
+ <div className="flex items-center h-full">
 
+<Link href="/">
   <Image
   src="/images/starwood-logo.png"
   alt="Starwood Constructions Logo"
   width={300}
   height={300}
   priority
- className="object-contain w-35 h-35 md:w-52 md:h-52 -translate-y-2 md:translate-y-3"
-/>
+  className="object-contain w-35 h-35 md:w-52 md:h-52 -translate-y-2 md:translate-y-3 cursor-pointer"
+  />
+</Link>
 
-  </div>
+</div>
 
 
 
