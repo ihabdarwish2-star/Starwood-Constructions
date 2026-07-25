@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import SiteHeader from "@/components/SiteHeader";
 
 export default function SteelFixingPage() {
 
@@ -33,6 +34,8 @@ export default function SteelFixingPage() {
 
   return (
     <main className="min-h-screen bg-black text-white">
+
+      <SiteHeader />
 
       {/* HERO */}
       <section className="py-24 text-center border-b border-yellow-500/20">
