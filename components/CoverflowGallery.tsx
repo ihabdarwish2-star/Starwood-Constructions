@@ -29,8 +29,8 @@ const images = [
 // How far (in px) each step away from center sits, and how much
 // smaller/dimmer/rotated each step becomes. Tuned for a fairly dramatic
 // "curving away" look — adjust these to taste.
-const STEP_X = 180;
-const STEP_SCALE = 0.16;
+const STEP_X = 210;
+const STEP_SCALE = 0.24;
 const STEP_ROTATE = 35;
 const MAX_VISIBLE_OFFSET = 3; // items further than this are hidden entirely
 
@@ -62,7 +62,7 @@ export default function CoverflowGallery() {
       </div>
 
       <div
-        className="relative h-[420px] flex items-center justify-center"
+        className="relative h-[520px] flex items-center justify-center"
         style={{ perspective: "1400px" }}
       >
         {images.map((image, i) => {
@@ -88,7 +88,7 @@ export default function CoverflowGallery() {
               onClick={() => goTo(i)}
             >
               <div
-                className={`relative w-[260px] h-[320px] rounded-3xl overflow-hidden border-2 shadow-2xl ${
+                className={`relative w-[340px] h-[420px] rounded-3xl overflow-hidden border-2 shadow-2xl ${
                   isCenter ? "border-yellow-500" : "border-yellow-500/20"
                 }`}
               >
@@ -96,7 +96,7 @@ export default function CoverflowGallery() {
                   src={`/images/${image.file}`}
                   alt={image.title}
                   fill
-                  sizes="260px"
+                  sizes="340px"
                   className="object-cover"
                 />
                 {isCenter && (
