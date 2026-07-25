@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 
 // Same photo set as the main gallery — kept as its own copy here so this
 // experimental component can be deleted later without touching
@@ -26,17 +26,28 @@ const images = [
   { file: "maroubra-storey-street.png", title: "Maroubra Street-Level Structure" },
 ];
 
-// How far (in px) each step away from center sits, and how much
-// smaller/dimmer/rotated each step becomes. Tuned for a fairly dramatic
-// "curving away" look — adjust these to taste.
-const STEP_X = 210;
-const STEP_SCALE = 0.24;
 const STEP_ROTATE = 35;
 const MAX_VISIBLE_OFFSET = 3; // items further than this are hidden entirely
 
 export default function CoverflowGallery() {
   const [index, setIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const total = images.length;
+
+  // Tailwind's md breakpoint (768px) — mirrored here in JS since the
+  // horizontal spacing between cards is a transform value, not a CSS
+  // class, so it can't be made responsive with Tailwind alone.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  const STEP_X = isDesktop ? 260 : 210;
+  const STEP_SCALE = isDesktop ? 0.22 : 0.24;
 
   function goTo(newIndex: number) {
     setIndex(((newIndex % total) + total) % total);
@@ -50,6 +61,26 @@ export default function CoverflowGallery() {
     return diff;
   }
 
+  // Lightbox keyboard support + scroll lock
+  useEffect(() => {
+    if (!lightboxOpen) return;
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setLightboxOpen(false);
+      if (e.key === "ArrowRight") goTo(index + 1);
+      if (e.key === "ArrowLeft") goTo(index - 1);
+    }
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lightboxOpen, index]);
+
   return (
     <section className="py-20 px-4 bg-black overflow-hidden">
       <div className="text-center max-w-3xl mx-auto mb-12">
@@ -62,7 +93,7 @@ export default function CoverflowGallery() {
       </div>
 
       <div
-        className="relative h-[520px] flex items-center justify-center"
+        className="relative h-[520px] md:h-[640px] flex items-center justify-center"
         style={{ perspective: "1400px" }}
       >
         {images.map((image, i) => {
@@ -88,7 +119,7 @@ export default function CoverflowGallery() {
               onClick={() => goTo(i)}
             >
               <div
-                className={`relative w-[340px] h-[420px] rounded-3xl overflow-hidden border-2 shadow-2xl ${
+                className={`relative w-[340px] h-[420px] md:w-[440px] md:h-[540px] rounded-3xl overflow-hidden border-2 shadow-2xl ${
                   isCenter ? "border-yellow-500" : "border-yellow-500/20"
                 }`}
               >
@@ -96,15 +127,29 @@ export default function CoverflowGallery() {
                   src={`/images/${image.file}`}
                   alt={image.title}
                   fill
-                  sizes="340px"
+                  sizes="(min-width: 768px) 440px, 340px"
                   className="object-cover"
                 />
+
                 {isCenter && (
-                  <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-4 py-3">
-                    <p className="text-yellow-500 text-sm font-bold text-center">
-                      {image.title}
-                    </p>
-                  </div>
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLightboxOpen(true);
+                      }}
+                      aria-label="View full size"
+                      className="absolute top-3 right-3 w-10 h-10 rounded-full bg-black/60 border border-yellow-500/40 text-yellow-500 flex items-center justify-center hover:bg-yellow-500 hover:text-black transition"
+                    >
+                      <Expand size={18} />
+                    </button>
+
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-4 py-3">
+                      <p className="text-yellow-500 text-sm font-bold text-center">
+                        {image.title}
+                      </p>
+                    </div>
+                  </>
                 )}
               </div>
             </motion.div>
@@ -130,6 +175,49 @@ export default function CoverflowGallery() {
           <ChevronRight size={24} />
         </button>
       </div>
+
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-sm z-[999] flex items-center justify-center px-4">
+          <button
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Close"
+            className="absolute top-6 right-6 w-12 h-12 rounded-full bg-black/60 border border-yellow-500/40 text-white flex items-center justify-center hover:bg-red-600 transition"
+          >
+            <X size={22} />
+          </button>
+
+          <button
+            onClick={() => goTo(index - 1)}
+            aria-label="Previous photo"
+            className="absolute left-5 text-yellow-500 text-5xl"
+          >
+            ‹
+          </button>
+
+          <div className="relative w-[95vw] h-[80vh]">
+            <Image
+              src={`/images/${images[index].file}`}
+              alt={images[index].title}
+              fill
+              sizes="95vw"
+              className="object-contain rounded-xl"
+            />
+          </div>
+
+          <button
+            onClick={() => goTo(index + 1)}
+            aria-label="Next photo"
+            className="absolute right-5 text-yellow-500 text-5xl"
+          >
+            ›
+          </button>
+
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-gray-300 text-sm bg-black/60 px-4 py-2 rounded-full border border-yellow-500/20">
+            {images[index].title}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
