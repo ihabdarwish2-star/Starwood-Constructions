@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
@@ -33,7 +34,12 @@ export default function CoverflowGallery() {
   const [index, setIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const total = images.length;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Tailwind's md breakpoint (768px) — mirrored here in JS since the
   // horizontal spacing between cards is a transform value, not a CSS
@@ -178,9 +184,11 @@ export default function CoverflowGallery() {
         </button>
       </div>
 
-      {/* Lightbox */}
-      {lightboxOpen && (
-        <div className="fixed inset-0 bg-black/95 backdrop-blur-sm z-[999] flex items-center justify-center px-4">
+      {/* Lightbox — rendered via portal directly into document.body so it
+          can never be visually covered by the sticky nav or anything else
+          with its own stacking context. */}
+      {lightboxOpen && mounted && createPortal(
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-sm z-[9999] flex items-center justify-center px-4">
           <button
             onClick={() => setLightboxOpen(false)}
             aria-label="Close"
@@ -218,7 +226,8 @@ export default function CoverflowGallery() {
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-gray-300 text-sm bg-black/60 px-4 py-2 rounded-full border border-yellow-500/20">
             {images[index].title}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );
