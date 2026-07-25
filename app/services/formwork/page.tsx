@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import SiteHeader from "@/components/SiteHeader";
-return (
 
 export default function FormworkPage() {
 
@@ -92,6 +91,8 @@ export default function FormworkPage() {
 
   return (
     <main className="min-h-screen bg-black text-white">
+
+      <SiteHeader />
 
       {/* HERO */}
       <section className="py-24 text-center border-b border-yellow-500/20">
