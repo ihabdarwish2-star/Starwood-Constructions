@@ -17,6 +17,7 @@ import Reveal from "@/components/Reveal";
 import PinnedWords from "@/components/PinnedWords";
 import TypewriterCycle from "@/components/TypewriterCycle";
 import VideoHero from "@/components/VideoHero";
+import CoverflowGallery from "@/components/CoverflowGallery";
 
 
 export default function Home() {
@@ -351,6 +352,7 @@ export default function Home() {
 
 
 </section>
+<CoverflowGallery />
 
 {/* Projects section ends above */}
 
