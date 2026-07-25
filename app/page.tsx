@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "@/components/MobileMenu";
-import ImageGallery from "@/components/ImageGallery";
 import useScrollFadeIn from "@/hooks/useScrollFadeIn";
 import FloatingButtons from "@/components/FloatingButtons";
 import Testimonials from "@/components/Testimonials";
@@ -237,6 +236,8 @@ export default function Home() {
 </section>
 {/* Services ends above */}
 
+<CoverflowGallery />
+
 <HowItWorks />
 
 
@@ -327,10 +328,6 @@ export default function Home() {
 
 
 </section>
-
-<CoverflowGallery />
-
-{/* Projects section ends above */}
 
 <AreasWeServe />
 
