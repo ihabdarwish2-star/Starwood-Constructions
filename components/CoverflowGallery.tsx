@@ -82,13 +82,15 @@ export default function CoverflowGallery() {
   }, [lightboxOpen, index]);
 
   return (
-    <section className="py-20 px-4 bg-black overflow-hidden">
+    <section id="projects" className="py-20 px-4 bg-zinc-950 overflow-hidden fade-up">
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <h2 className="text-4xl font-bold text-yellow-500 mb-4">
-          Our Work — Coverflow
+        <h2 className="text-5xl font-bold text-yellow-500 mb-6">
+          Our Work
         </h2>
-        <p className="text-gray-400 text-sm">
-          Experimental gallery layout — tap a side photo or use the arrows to browse.
+        <p className="text-gray-300 text-lg">
+          A selection of Starwood Constructions projects showcasing precision
+          formwork, reinforcement, concrete structures and quality finishes
+          across Sydney. Tap a photo or use the arrows to browse.
         </p>
       </div>
 

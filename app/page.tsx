@@ -327,31 +327,7 @@ export default function Home() {
 
 
 </section>
-{/* Projects */}
-<section
-  id="projects"
-  className="py-20 px-8 bg-zinc-950 fade-up"
->
 
-  <div className="text-center max-w-4xl mx-auto mb-16">
-
-    <h2 className="text-5xl font-bold text-yellow-500 mb-6">
-      Our Work
-    </h2>
-
-    <p className="text-gray-300 text-lg">
-      A selection of Starwood Constructions projects showcasing
-      precision formwork, reinforcement, concrete structures and
-      quality finishes across Sydney.
-    </p>
-
-  </div>
-
-
-  <ImageGallery />
-
-
-</section>
 <CoverflowGallery />
 
 {/* Projects section ends above */}
